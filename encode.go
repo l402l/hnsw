@@ -7,8 +7,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-
-	"github.com/google/renameio"
 )
 
 // errorEncoder is a helper type to encode multiple values
@@ -299,29 +297,29 @@ func LoadSavedGraph[K cmp.Ordered](path string) (*SavedGraph[K], error) {
 	return &SavedGraph[K]{Graph: g, Path: path}, nil
 }
 
-// Save writes the graph to the file.
-func (g *SavedGraph[K]) Save() error {
-	tmp, err := renameio.TempFile("", g.Path)
-	if err != nil {
-		return err
-	}
-	defer tmp.Cleanup()
-
-	wr := bufio.NewWriter(tmp)
-	err = g.Export(wr)
-	if err != nil {
-		return fmt.Errorf("exporting: %w", err)
-	}
-
-	err = wr.Flush()
-	if err != nil {
-		return fmt.Errorf("flushing: %w", err)
-	}
-
-	err = tmp.CloseAtomicallyReplace()
-	if err != nil {
-		return fmt.Errorf("closing atomically: %w", err)
-	}
-
-	return nil
-}
+//// Save writes the graph to the file.
+//func (g *SavedGraph[K]) Save() error {
+//	tmp, err := renameio.TempFile("", g.Path)
+//	if err != nil {
+//		return err
+//	}
+//	defer tmp.Cleanup()
+//
+//	wr := bufio.NewWriter(tmp)
+//	err = g.Export(wr)
+//	if err != nil {
+//		return fmt.Errorf("exporting: %w", err)
+//	}
+//
+//	err = wr.Flush()
+//	if err != nil {
+//		return fmt.Errorf("flushing: %w", err)
+//	}
+//
+//	err = tmp.CloseAtomicallyReplace()
+//	if err != nil {
+//		return fmt.Errorf("closing atomically: %w", err)
+//	}
+//
+//	return nil
+//}
