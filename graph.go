@@ -8,7 +8,7 @@ import (
 	"slices"
 	"time"
 
-	"github.com/coder/hnsw/heap"
+	"github.com/l402l/hnsw/heap"
 	"golang.org/x/exp/maps"
 )
 
